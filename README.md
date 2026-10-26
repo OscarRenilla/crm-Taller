@@ -2,13 +2,15 @@
 
 ## Arrancar (1 comando)
 - Linux/Mac: `bash iniciar.sh`
-- Windows: `iniciar.bat`  (doble clic o ejecutarlo desde la terminal)
+- Windows: `iniciar.bat`  (doble clic o ejecutarlo desde la terminal) `*`
 
 Abre http://127.0.0.1:8000/ · usuario **admin** · clave **admin1234**
 
 Manual: `pip install -r requirements.txt` → `python manage.py makemigrations` → `migrate` → `cargar_ejemplo` → `runserver`.
 
 Para recargar los datos de ejemplo desde cero: borrar`` db.sqlite3`` y ejecutar iniciar otra vez.
+
+> `*` Nota: Puede no funcionar. Abrir `iniciar.bat` con notepad y cambiar todos los `py` por `python`
 
 ## Qué ya funciona
 Login, panel con métricas y, en los 4 módulos (contactos, oportunidades, interacciones, tareas): listado con búsqueda, ficha, crear, editar y borrar. La ficha del contacto muestra su historial. Datos de ejemplo cargados.
