@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Tareas</h1>
+{% comment %}
+  Plantilla del listado. Variables que envía la vista: objetos (lista), q (texto buscado),
+  prioridad y estado (filtros elegidos), prioridades (opciones del desplegable) y hoy (fecha actual).
+  for o in objetos ... empty ... endfor : recorre la lista; 'empty' se muestra si no hay datos.
+  o.campo muestra un campo | o.get_campo_display texto visible de un choices
+  fecha|date:"d/m/Y" formatea fecha | texto|truncatechars:60 recorta | x|default:"—" valor por defecto
+  url 'app:nombre' o.pk  genera la URL (nunca escribas rutas a mano)
+  TODO 6 (hecho): columna «Prioridad» añadida; las tareas vencidas y pendientes se pintan en rojo.
+  NIVEL 3 (hecho): botón «✔ Hecha» en cada fila pendiente (formulario POST con csrf_token).
+{% endcomment %}
+<form method="get">
+ <input name="q" value="{{ q }}" placeholder="Buscar...">
+ <select name="prioridad">
+  <option value="">Todas las prioridades</option>
+  {% for valor, texto in prioridades %}
+   <option value="{{ valor }}" {% if valor == prioridad %}selected{% endif %}>{{ texto }}</option>
+  {% endfor %}
+ </select>
+ <select name="estado">
+  <option value="">Pendientes y hechas</option>
+  <option value="pendientes" {% if estado == 'pendientes' %}selected{% endif %}>Solo pendientes</option>
+  <option value="hechas" {% if estado == 'hechas' %}selected{% endif %}>Solo hechas</option>
+ </select>
+ <button>Buscar</button>
+ <a class="btn" href="{% url 'tareas:crear' %}">+ Nuevo</a>
+</form>
+<table>
+ <tr><th>Tarea</th><th>Contacto</th><th>Prioridad</th><th>Vence</th><th>Hecha</th><th>Acciones</th></tr>
+ {% for o in objetos %}
+ <tr><td>{{ o.titulo }}</td><td>{{ o.contacto|default:"—" }}</td><td>{{ o.get_prioridad_display }}</td>
+  {# Si no está hecha y su fecha ya pasó (vence < hoy), la fecha se pinta en rojo #}
+  <td>{% if not o.hecha and o.vence < hoy %}<strong style="color:#c0392b">{{ o.vence|date:"d/m/Y" }} (vencida)</strong>{% else %}{{ o.vence|date:"d/m/Y" }}{% endif %}</td>
+  <td>{{ o.hecha|yesno:"Sí,No" }}</td>
+  <td>
+      {# Un solo clic: formulario POST que apunta a la vista marcar_hecha. Solo se enseña si está pendiente. #}
+      {% if not o.hecha %}
+      <form method="post" action="{% url 'tareas:hecha' o.pk %}" style="display:inline">{% csrf_token %}<button type="submit">✔ Hecha</button></form> ·
+      {% endif %}
+      <a href="{% url 'tareas:detalle' o.pk %}">Ver</a> ·
+      <a href="{% url 'tareas:editar' o.pk %}">Editar</a> ·
+      <a href="{% url 'tareas:borrar' o.pk %}">Borrar</a></td></tr>
+ {% empty %}<tr><td colspan="6">No hay datos todavía.</td></tr>
+ {% endfor %}
+</table>
+{% endblock %}
