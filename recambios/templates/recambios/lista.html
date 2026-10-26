@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Recambios</h1>
+{% comment %}
+  Plantilla del listado de recambios (módulo propio, Nivel 4).
+  Variables que envía la vista: objetos (lista), q (texto buscado), categoria (filtro elegido)
+  y categorias (opciones del desplegable).
+  o.stock_bajo es una propiedad del modelo: True si hay que reponer el recambio.
+{% endcomment %}
+<form method="get">
+ <input name="q" value="{{ q }}" placeholder="Buscar por nombre o referencia...">
+ {# Desplegable de categorías: la opción vacía significa "sin filtrar" #}
+ <select name="categoria">
+  <option value="">Todas las categorías</option>
+  {% for valor, texto in categorias %}
+   <option value="{{ valor }}" {% if valor == categoria %}selected{% endif %}>{{ texto }}</option>
+  {% endfor %}
+ </select>
+ <button>Buscar</button>
+ <a class="btn" href="{% url 'recambios:crear' %}">+ Nuevo</a>
+</form>
+<table>
+ <tr><th>Referencia</th><th>Recambio</th><th>Categoría</th><th>Proveedor</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+ {% for o in objetos %}
+ <tr><td>{{ o.referencia }}</td><td>{{ o.nombre }}</td><td>{{ o.get_categoria_display }}</td>
+  <td>{{ o.proveedor|default:"—" }}</td><td>{{ o.precio }} €</td>
+  {# Si el stock está en el mínimo (o por debajo) se avisa en rojo #}
+  <td>{% if o.stock_bajo %}<strong style="color:#c0392b">{{ o.stock }} ⚠ reponer</strong>{% else %}{{ o.stock }}{% endif %}</td>
+  <td><a href="{% url 'recambios:detalle' o.pk %}">Ver</a> ·
+      <a href="{% url 'recambios:editar' o.pk %}">Editar</a> ·
+      <a href="{% url 'recambios:borrar' o.pk %}">Borrar</a></td></tr>
+ {% empty %}<tr><td colspan="7">No hay datos todavía.</td></tr>
+ {% endfor %}
+</table>
+{% endblock %}
