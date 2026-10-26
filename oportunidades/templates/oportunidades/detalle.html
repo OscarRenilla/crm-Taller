@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>{{ objeto }}</h1>
+{% comment %}
+  Ficha PROPIA de oportunidades (la genérica core/detalle.html no tiene el botón de ganar).
+  Variables que envía la vista: objeto, campos (lista de etiqueta/valor) y ya_ganada (True/False).
+  TODO 8 (hecho): botón «Marcar como ganada». Es un <form method="post">, no un enlace: así solo se envía por POST.
+  {% csrf_token %} es OBLIGATORIO en cualquier formulario POST.
+{% endcomment %}
+<table>{% for etiqueta, valor in campos %}<tr><th>{{ etiqueta }}</th><td>{{ valor }}</td></tr>{% endfor %}</table>
+
+{# Solo se enseña el botón si la oportunidad todavía no está ganada #}
+{% if not ya_ganada %}
+<form method="post" action="{% url 'oportunidades:ganar' objeto.pk %}" style="margin:16px 0">
+ {% csrf_token %}
+ <button type="submit">✔ Marcar como ganada (vehículo entregado)</button>
+</form>
+{% else %}
+<p class="aviso" style="border-left-color:#27ae60">✔ Trabajo ganado: vehículo entregado.</p>
+{% endif %}
+
+<p>
+ <a href="{% url 'oportunidades:editar' objeto.pk %}">Editar</a> ·
+ <a href="{% url 'oportunidades:borrar' objeto.pk %}">Borrar</a> ·
+ <a href="{% url 'contactos:detalle' objeto.contacto.pk %}">Ver cliente</a> ·
+ <a href="{% url 'oportunidades:index' %}">Volver al listado</a>
+</p>
+{% endblock %}

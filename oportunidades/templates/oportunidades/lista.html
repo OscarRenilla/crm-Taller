@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Oportunidades</h1>
+{% comment %}
+  Plantilla del listado. Variables que envía la vista: objetos (lista), q (texto buscado),
+  etapa (filtro elegido), etapas (opciones del desplegable) y totales (importe por etapa).
+  for o in objetos ... empty ... endfor : recorre la lista; 'empty' se muestra si no hay datos.
+  o.campo muestra un campo | o.get_campo_display texto visible de un choices
+  fecha|date:"d/m/Y" formatea fecha | texto|truncatechars:60 recorta | x|default:"—" valor por defecto
+  url 'app:nombre' o.pk  genera la URL (nunca escribas rutas a mano)
+  TODO 6 (hecho): columna «Cierre previsto» añadida.
+  TODO 7 (hecho): desplegable de etapa.
+  NIVEL 3 (hecho): tabla «Importe total por etapa» (Sum + values/annotate en la vista).
+{% endcomment %}
+<form method="get">
+ <input name="q" value="{{ q }}" placeholder="Trabajo, cliente o matrícula...">
+ {# Desplegable de etapas: la opción vacía significa "sin filtrar". 'selected' deja marcada la elegida. #}
+ <select name="etapa">
+  <option value="">Todas las etapas</option>
+  {% for valor, texto in etapas %}
+   <option value="{{ valor }}" {% if valor == etapa %}selected{% endif %}>{{ texto }}</option>
+  {% endfor %}
+ </select>
+ <button>Buscar</button>
+ <a class="btn" href="{% url 'oportunidades:crear' %}">+ Nuevo</a>
+</form>
+<table>
+ <tr><th>Trabajo</th><th>Cliente</th><th>Etapa</th><th>Importe</th><th>Cierre previsto</th><th>Acciones</th></tr>
+ {% for o in objetos %}
+ <tr><td>{{ o.titulo }}</td><td>{{ o.contacto }}</td><td>{{ o.get_etapa_display }}</td><td>{{ o.importe }} €</td>
+  <td>{{ o.cierre_previsto|date:"d/m/Y"|default:"—" }}</td>
+  <td><a href="{% url 'oportunidades:detalle' o.pk %}">Ver</a> ·
+      <a href="{% url 'oportunidades:editar' o.pk %}">Editar</a> ·
+      <a href="{% url 'oportunidades:borrar' o.pk %}">Borrar</a></td></tr>
+ {% empty %}<tr><td colspan="6">No hay datos todavía.</td></tr>
+ {% endfor %}
+</table>
+
+<h2>Importe total por etapa</h2>
+<table>
+ <tr><th>Etapa</th><th>Nº de trabajos</th><th>Importe total</th></tr>
+ {% for t in totales %}
+ <tr><td>{{ t.etapa }}</td><td>{{ t.n }}</td><td>{{ t.total }} €</td></tr>
+ {% endfor %}
+</table>
+{% endblock %}
