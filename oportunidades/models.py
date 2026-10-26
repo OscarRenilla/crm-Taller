@@ -16,7 +16,7 @@ class Oportunidad(models.Model):
     # Lista de opciones posibles para el campo "etapa".
     # En cada pareja, el primer texto es el valor que se guarda en la base de datos;
     # el segundo es el texto que se muestra a las personas.
-    # TODO 3 (hecho): etapas de un trabajo en el taller (mínimo 4; aquí hay 5).
+    # TODO-ALUMNO 3: etapas de un trabajo en el taller (mínimo 4; aquí hay 5).
     # Constantes con el valor "interno" de las etapas que usa el código (así no se escriben a mano en varios sitios).
     ETAPA_GANADA = 'entregado'              # Trabajo terminado, entregado y cobrado = oportunidad GANADA
     ETAPA_EN_REPARACION = 'en_reparacion'   # Coche dentro del taller (la usa la métrica del panel)

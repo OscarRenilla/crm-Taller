@@ -14,7 +14,7 @@ from django.db import models
 # Define el modelo Tarea.
 class Tarea(models.Model):
 
-    # TODO 5 (hecho): opciones del campo "prioridad".
+    # TODO-ALUMNO 5: opciones del campo "prioridad".
     # El primer valor se guarda en la base de datos; el segundo se muestra en pantalla.
     PRIORIDADES = [
         ('alta', 'Alta'),

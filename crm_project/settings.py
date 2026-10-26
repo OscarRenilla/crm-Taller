@@ -10,10 +10,10 @@ DEBUG = True                 # True = muestra errores detallados (solo desarroll
 ALLOWED_HOSTS = []           # Con DEBUG=False hay que listar dominios, ej: ['midominio.com']
 
 # >>> ALUMNO: nombre de tu CRM (aparece en la barra superior)
-# TODO 0 (hecho): nombre acorde a la temática (CRM de un taller mecánico de coches)
+# TODO 0: nombre acorde a la temática (CRM de un taller mecánico de coches)
 NOMBRE_CRM = 'AutoTaller CRM'
 # >>> ALUMNO: color principal en formato CSS. Valores válidos: '#0b6623', 'crimson', 'rgb(10,20,30)'...
-# TODO 0 (hecho): naranja "industrial" (recuerda a un taller / señalización de obra)
+# TODO 0: naranja oscuro, que es el color de la marca del taller
 COLOR_PRINCIPAL = '#d35400'
 
 # >>> ALUMNO: MÓDULOS ACTIVOS. Cada nombre es una carpeta (app) del proyecto.

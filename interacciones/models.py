@@ -25,7 +25,7 @@ class Interaccion(models.Model):
         ('email', 'Email'),
         ('reunion', 'Reunión'),
         ('nota', 'Nota'),
-        # TODO 4 (hecho): canales nuevos, muy usados en un taller
+        # TODO-ALUMNO 4: canales nuevos, muy usados en un taller
         ('whatsapp', 'WhatsApp'),           # Avisos de "tu coche está listo" y envío de presupuestos
         ('mostrador', 'En mostrador'),      # Cliente que pasa por el taller en persona
     ]

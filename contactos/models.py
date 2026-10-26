@@ -10,11 +10,11 @@ from django.db import models
 
 class Contacto(models.Model):
     # choices: lista de pares (valor_guardado_en_BD, texto_visible). Cámbialas por las de tu temática.
-    # TODO 1 (hecho): tipos de contacto propios de un taller mecánico.
+    # TODO-ALUMNO 1: añade/renombra tipos de contacto propios de un taller mecánico.
     TIPOS = [
         ('particular', 'Cliente particular'),
         ('empresa', 'Empresa / flota'),
-        ('proveedor', 'Proveedor de recambios'),   # OJO: el módulo recambios filtra por este valor
+        ('proveedor', 'Proveedor de recambios'),   # El módulo recambios filtra por este valor
         ('aseguradora', 'Aseguradora'),
         ('otro', 'Otro'),
     ]
@@ -25,7 +25,7 @@ class Contacto(models.Model):
     telefono = models.CharField(max_length=30, blank=True)           # Teléfono como texto (admite +34, espacios)
     notas = models.TextField(blank=True)                             # Texto largo
     creado = models.DateTimeField(auto_now_add=True)                 # auto_now_add -> fecha de creación automática
-    # TODO 2 (hecho): 2 campos propios del taller.
+    # TODO-ALUMNO 2: añade 2 campos propios de tu temática (taller).
     # Matrícula del vehículo (ej: '1234 BCD'). blank=True porque proveedores/aseguradoras no tienen coche.
     matricula = models.CharField(max_length=15, blank=True, help_text='Ej: 1234 BCD')
     # Marca y modelo del vehículo del cliente (ej: 'Seat León 1.6 TDI')

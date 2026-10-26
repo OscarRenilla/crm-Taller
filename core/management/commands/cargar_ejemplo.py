@@ -2,7 +2,7 @@
 Comando:  python manage.py cargar_ejemplo
 Crea el usuario admin (clave admin1234) y datos de ejemplo para que el CRM no esté vacío.
 Es seguro ejecutarlo varias veces: no duplica datos.
-TODO 10 (hecho): datos de ejemplo de un TALLER MECÁNICO (10 contactos, trabajos, avisos, tareas y recambios).
+TODO-ALUMNO 10: datos de ejemplo de un TALLER MECÁNICO (10 contactos, trabajos, avisos, tareas y recambios).
 Los nombres, teléfonos, emails y matrículas son inventados.
 """
 from datetime import date, timedelta
