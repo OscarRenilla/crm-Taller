@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Contactos</h1>
+{% comment %}
+  Plantilla del listado. Variables que envía la vista: objetos (lista) y q (texto buscado).
+  for o in objetos ... empty ... endfor : recorre la lista; 'empty' se muestra si no hay datos.
+  o.campo muestra un campo | o.get_campo_display texto visible de un choices
+  fecha|date:"d/m/Y" formatea fecha | texto|truncatechars:60 recorta | x|default:"—" valor por defecto
+  url 'app:nombre' o.pk  genera la URL (nunca escribas rutas a mano)
+  TODO 6 (hecho): columnas Matrícula y Vehículo añadidas (th en cabecera y td en cada fila).
+  TODO 7 (hecho): desplegable de tipo. Variables extra de la vista: tipo (el elegido) y tipos (todas las opciones).
+{% endcomment %}
+<form method="get">
+ <input name="q" value="{{ q }}" placeholder="Nombre, matrícula o vehículo...">
+ {# Desplegable de tipos: la opción vacía significa "sin filtrar". 'selected' deja marcada la opción elegida. #}
+ <select name="tipo">
+  <option value="">Todos los tipos</option>
+  {% for valor, texto in tipos %}
+   <option value="{{ valor }}" {% if valor == tipo %}selected{% endif %}>{{ texto }}</option>
+  {% endfor %}
+ </select>
+ <button>Buscar</button>
+ <a class="btn" href="{% url 'contactos:crear' %}">+ Nuevo</a>
+</form>
+<table>
+ <tr><th>Nombre</th><th>Tipo</th><th>Matrícula</th><th>Vehículo</th><th>Email</th><th>Teléfono</th><th>Acciones</th></tr>
+ {% for o in objetos %}
+ <tr><td>{{ o.nombre }}</td><td>{{ o.get_tipo_display }}</td><td>{{ o.matricula|default:"—" }}</td><td>{{ o.vehiculo|default:"—" }}</td><td>{{ o.email }}</td><td>{{ o.telefono }}</td>
+  <td><a href="{% url 'contactos:detalle' o.pk %}">Ver</a> ·
+      <a href="{% url 'contactos:editar' o.pk %}">Editar</a> ·
+      <a href="{% url 'contactos:borrar' o.pk %}">Borrar</a></td></tr>
+ {% empty %}<tr><td colspan="7">No hay datos todavía.</td></tr>
+ {% endfor %}
+</table>
+{% endblock %}
