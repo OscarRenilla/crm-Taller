@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent   # Carpeta raíz del proyecto
 
 SECRET_KEY = 'clave-solo-para-desarrollo-cambiar-en-produccion'  # Nunca subir una real a GitHub
 DEBUG = True                 # True = muestra errores detallados (solo desarrollo). False en producción
-ALLOWED_HOSTS = []           # Con DEBUG=False hay que listar dominios, ej: ['midominio.com']
+ALLOWED_HOSTS = ['*']           # Con DEBUG=False hay que listar dominios, ej: ['midominio.com']
 
 # >>> ALUMNO: nombre de tu CRM (aparece en la barra superior)
 # TODO 0: nombre acorde a la temática (CRM de un taller mecánico de coches)
