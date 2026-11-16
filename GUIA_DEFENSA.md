@@ -87,43 +87,43 @@ Django utiliza el patrón arquitectónico **MVT (Model - View - Template)**:
   - Cambios: `NOMBRE_CRM = 'AutoTaller CRM'`, `COLOR_PRINCIPAL = '#d35400'` (naranja mecánico corporativo), `LANGUAGE_CODE = 'es'`, `TIME_ZONE = 'Europe/Madrid'`. Redacción de `TEMATICA.md`.
   - 📍 **Archivos:**
     - [`crm_project/settings.py`](./crm_project/settings.py#L14-L74) *(configuraciones globales de marca, idioma y zona horaria)*
-    - [`TEMATICA.md`](./crm-Taller/TEMATICA.md) *(documento de 5 líneas describiendo el taller y el rol de los contactos)*
+    - [`TEMATICA.md`](./TEMATICA.md) *(documento de 5 líneas describiendo el taller y el rol de los contactos)*
 
 - **TODO 1 (Tipos de contacto adaptados al taller):**
   - Cambios: Opciones personalizadas de `TIPOS` (`particular`, `empresa`, `proveedor`, `aseguradora`, `otro`).
   - 📍 **Archivos:**
-    - [`contactos/models.py`](./crm-Taller/contactos/models.py#L14-L20) *(tupla `TIPOS` en el modelo `Contacto`)*
+    - [`contactos/models.py`](./contactos/models.py#L14-L20) *(tupla `TIPOS` en el modelo `Contacto`)*
 
 - **TODO 2 (Campos propios en Contacto: Matrícula y Vehículo):**
   - Cambios: Añadidos campos `matricula` y `vehiculo`. Guardado en mayúsculas con `.strip().upper()` en `save()`. Llevados a modelo, formularios, admin, listado y ficha de detalle.
   - 📍 **Archivos:**
-    - [`contactos/models.py`](./crm-Taller/contactos/models.py#L29-L40) *(definición de campos `matricula` y `vehiculo`, y método `save()`)*
-    - [`contactos/forms.py`](./crm-Taller/contactos/forms.py#L13) *(inclusión de los campos en la lista `fields` del `ContactoForm`)*
-    - [`contactos/admin.py`](./crm-Taller/contactos/admin.py#L10-L12) *(inclusión en `list_display` y `search_fields` en `ContactoAdmin`)*
-    - [`contactos/templates/contactos/lista.html`](./crm-Taller/contactos/templates/contactos/lista.html#L26-L28) *(cabeceras `<th>Matrícula</th><th>Vehículo</th>` y celdas `<td>`)*
-    - [`contactos/templates/contactos/detalle.html`](./crm-Taller/contactos/templates/contactos/detalle.html#L4) *(renderizado en ficha mediante la utilidad `campos_de`)*
+    - [`contactos/models.py`](./contactos/models.py#L29-L40) *(definición de campos `matricula` y `vehiculo`, y método `save()`)*
+    - [`contactos/forms.py`](./contactos/forms.py#L13) *(inclusión de los campos en la lista `fields` del `ContactoForm`)*
+    - [`contactos/admin.py`](./contactos/admin.py#L10-L12) *(inclusión en `list_display` y `search_fields` en `ContactoAdmin`)*
+    - [`contactos/templates/contactos/lista.html`](./contactos/templates/contactos/lista.html#L26-L28) *(cabeceras `<th>Matrícula</th><th>Vehículo</th>` y celdas `<td>`)*
+    - [`contactos/templates/contactos/detalle.html`](./contactos/templates/contactos/detalle.html#L4) *(renderizado en ficha mediante la utilidad `campos_de`)*
 
 - **TODO 3 (Etapas de Oportunidad y sincronización del panel):**
   - Cambios: 5 etapas del taller (`presupuesto`, `aprobado`, `en_reparacion`, `entregado`, `rechazado`). Constantes de clase `ETAPA_GANADA = 'entregado'` y `ETAPA_EN_REPARACION = 'en_reparacion'`. Actualización del panel para sumar facturación de entregados.
   - 📍 **Archivos:**
-    - [`oportunidades/models.py`](./crm-Taller/oportunidades/models.py#L21-L30) *(definición de constantes `ETAPA_GANADA`, `ETAPA_EN_REPARACION` y lista `ETAPAS`)*
-    - [`core/views.py`](./crm-Taller/core/views.py#L41-L45) *(cálculo de facturación ganada usando `Op.ETAPA_GANADA` y conteo de coches en taller)*
+    - [`oportunidades/models.py`](./oportunidades/models.py#L21-L30) *(definición de constantes `ETAPA_GANADA`, `ETAPA_EN_REPARACION` y lista `ETAPAS`)*
+    - [`core/views.py`](./core/views.py#L41-L45) *(cálculo de facturación ganada usando `Op.ETAPA_GANADA` y conteo de coches en taller)*
 
 - **TODO 4 (Canales nuevos en Interacciones):**
   - Cambios: Incorporación de los canales `whatsapp` ('WhatsApp') y `mostrador` ('En mostrador').
   - 📍 **Archivos:**
-    - [`interacciones/models.py`](./crm-Taller/interacciones/models.py#L23-L31) *(opciones añadidas a la tupla `CANALES` del modelo `Interaccion`)*
+    - [`interacciones/models.py`](./interacciones/models.py#L23-L31) *(opciones añadidas a la tupla `CANALES` del modelo `Interaccion`)*
 
 - **TODO 5 (Prioridad en Tareas con choices):**
   - Cambios: Nuevo campo `prioridad` con tupla de choices (`alta`, `media`, `baja`), con valor por defecto `'media'`.
   - 📍 **Archivos:**
-    - [`tareas/models.py`](./crm-Taller/tareas/models.py#L19-L23) *(tupla `PRIORIDADES` y campo `prioridad` en el modelo `Tarea`)*
-    - [`tareas/forms.py`](./crm-Taller/tareas/forms.py#L26) *(campo `prioridad` añadido a `fields` de `TareaForm`)*
+    - [`tareas/models.py`](./tareas/models.py#L19-L23) *(tupla `PRIORIDADES` y campo `prioridad` en el modelo `Tarea`)*
+    - [`tareas/forms.py`](./tareas/forms.py#L26) *(campo `prioridad` añadido a `fields` de `TareaForm`)*
 
 - **TODO 10 (Datos de prueba temáticos de taller):**
   - Cambios: Script con 10 contactos (particulares, empresas, proveedores, aseguradora), 9 trabajos, 8 interacciones, 8 tareas con fechas dinámicas y 8 recambios de almacén.
   - 📍 **Archivos:**
-    - [`core/management/commands/cargar_ejemplo.py`](./crm-Taller/core/management/commands/cargar_ejemplo.py#L30-L108) *(comando de carga `python manage.py cargar_ejemplo`)*
+    - [`core/management/commands/cargar_ejemplo.py`](./core/management/commands/cargar_ejemplo.py#L30-L108) *(comando de carga `python manage.py cargar_ejemplo`)*
 
 ---
 
@@ -132,34 +132,34 @@ Django utiliza el patrón arquitectónico **MVT (Model - View - Template)**:
 - **TODO 6 (Ajuste de columnas en los 4 listados + recambios):**
   - Cambios: Modificación de cabeceras (`<th>`) y filas (`<td>`) para reflejar los campos propios en cada tabla.
   - 📍 **Archivos:**
-    - [`contactos/templates/contactos/lista.html`](./crm-Taller/contactos/templates/contactos/lista.html#L26-L28) *(columnas Matrícula y Vehículo)*
-    - [`oportunidades/templates/oportunidades/lista.html`](./crm-Taller/oportunidades/templates/oportunidades/lista.html#L28-L31) *(columna Cierre previsto con formateo de fecha)*
-    - [`tareas/templates/tareas/lista.html`](./crm-Taller/tareas/templates/tareas/lista.html#L31-L35) *(columna Prioridad y aviso en rojo de fecha vencida)*
-    - [`recambios/templates/recambios/lista.html`](./crm-Taller/recambios/templates/recambios/lista.html#L23-L28) *(columnas Referencia, Stock y aviso visual de reponer)*
+    - [`contactos/templates/contactos/lista.html`](./contactos/templates/contactos/lista.html#L26-L28) *(columnas Matrícula y Vehículo)*
+    - [`oportunidades/templates/oportunidades/lista.html`](./oportunidades/templates/oportunidades/lista.html#L28-L31) *(columna Cierre previsto con formateo de fecha)*
+    - [`tareas/templates/tareas/lista.html`](./tareas/templates/tareas/lista.html#L31-L35) *(columna Prioridad y aviso en rojo de fecha vencida)*
+    - [`recambios/templates/recambios/lista.html`](./recambios/templates/recambios/lista.html#L23-L28) *(columnas Referencia, Stock y aviso visual de reponer)*
 
 - **TODO 7 (Filtros por desplegable y búsquedas avanzadas con Q):**
   - Cambios: Filtro por `tipo` en contactos y por `etapa` en oportunidades mediante desplegables HTML y `.filter()` en las vistas. Búsquedas multi-campo con `Q()`. Filtros adicionales por canal, prioridad/estado y categoría.
   - 📍 **Archivos:**
-    - [`contactos/views.py`](./crm-Taller/contactos/views.py#L17-L30) *(lógica de búsqueda con `Q(nombre) | Q(matricula) | Q(vehiculo)` y `filter(tipo=tipo)`)*
-    - [`contactos/templates/contactos/lista.html`](./crm-Taller/contactos/templates/contactos/lista.html#L13-L24) *(desplegable `<select name="tipo">` y buscador)*
-    - [`oportunidades/views.py`](./crm-Taller/oportunidades/views.py#L38-L59) *(lógica de búsqueda multi-campo y `filter(etapa=etapa)`)*
-    - [`oportunidades/templates/oportunidades/lista.html`](./crm-Taller/oportunidades/templates/oportunidades/lista.html#L15-L26) *(desplegable `<select name="etapa">` y buscador)*
-    - [`interacciones/views.py`](./crm-Taller/interacciones/views.py#L44-L55) y [`interacciones/templates/interacciones/lista.html`](./crm-Taller/interacciones/templates/interacciones/lista.html) *(filtro por `canal`)*
-    - [`tareas/views.py`](./crm-Taller/tareas/views.py#L48-L73) y [`tareas/templates/tareas/lista.html`](./crm-Taller/tareas/templates/tareas/lista.html#L16-L26) *(filtros por `prioridad` y por `estado`)*
-    - [`recambios/views.py`](./crm-Taller/recambios/views.py#L34-L52) y [`recambios/templates/recambios/lista.html`](./crm-Taller/recambios/templates/recambios/lista.html#L13-L21) *(filtro por `categoria`)*
+    - [`contactos/views.py`](./contactos/views.py#L17-L30) *(lógica de búsqueda con `Q(nombre) | Q(matricula) | Q(vehiculo)` y `filter(tipo=tipo)`)*
+    - [`contactos/templates/contactos/lista.html`](./contactos/templates/contactos/lista.html#L13-L24) *(desplegable `<select name="tipo">` y buscador)*
+    - [`oportunidades/views.py`](./oportunidades/views.py#L38-L59) *(lógica de búsqueda multi-campo y `filter(etapa=etapa)`)*
+    - [`oportunidades/templates/oportunidades/lista.html`](./oportunidades/templates/oportunidades/lista.html#L15-L26) *(desplegable `<select name="etapa">` y buscador)*
+    - [`interacciones/views.py`](./interacciones/views.py#L44-L55) y [`interacciones/templates/interacciones/lista.html`](./interacciones/templates/interacciones/lista.html) *(filtro por `canal`)*
+    - [`tareas/views.py`](./tareas/views.py#L48-L73) y [`tareas/templates/tareas/lista.html`](./tareas/templates/tareas/lista.html#L16-L26) *(filtros por `prioridad` y por `estado`)*
+    - [`recambios/views.py`](./recambios/views.py#L34-L52) y [`recambios/templates/recambios/lista.html`](./recambios/templates/recambios/lista.html#L13-L21) *(filtro por `categoria`)*
 
 - **TODO 8 (Botón "Marcar como ganada" en Oportunidad):**
   - Cambios: Vista protegida por `@login_required` y `@require_POST` para pasar la etapa a `ETAPA_GANADA` ('entregado') de forma segura. En la plantilla, botón dentro de un `<form method="post">` con `{% csrf_token %}` que solo se muestra si la oportunidad no ha sido ganada.
   - 📍 **Archivos:**
-    - [`oportunidades/urls.py`](./crm-Taller/oportunidades/urls.py#L38-L39) *(ruta `path('<int:pk>/ganar/', views.marcar_ganada, name='ganar')`)*
-    - [`oportunidades/views.py`](./crm-Taller/oportunidades/views.py#L117-L134) *(vista `marcar_ganada` con decoradores `@require_POST` y `@login_required`)*
-    - [`oportunidades/templates/oportunidades/detalle.html`](./crm-Taller/oportunidades/templates/oportunidades/detalle.html#L13-L20) *(formulario POST con token CSRF y aviso de trabajo ganado)*
+    - [`oportunidades/urls.py`](./oportunidades/urls.py#L38-L39) *(ruta `path('<int:pk>/ganar/', views.marcar_ganada, name='ganar')`)*
+    - [`oportunidades/views.py`](./oportunidades/views.py#L117-L134) *(vista `marcar_ganada` con decoradores `@require_POST` y `@login_required`)*
+    - [`oportunidades/templates/oportunidades/detalle.html`](./oportunidades/templates/oportunidades/detalle.html#L13-L20) *(formulario POST con token CSRF y aviso de trabajo ganado)*
 
 - **TODO 9 (Métricas personalizadas en el Dashboard):**
   - Cambios: Tres métricas clave para el taller: tareas vencidas (`vence < hoy`), coches en reparación ahora mismo (`etapa = en_reparacion`) y piezas con stock bajo (`stock <= stock_minimo` usando expresiones `F`).
   - 📍 **Archivos:**
-    - [`core/views.py`](./crm-Taller/core/views.py#L38-L50) *(cálculos con `vence__lt=date.today()`, `ETAPA_EN_REPARACION` y `stock__lte=F('stock_minimo')`)*
-    - [`core/templates/core/inicio.html`](./crm-Taller/core/templates/core/inicio.html#L13-L15) *(visualización condicional en rojo de tareas vencidas y recambios críticos)*
+    - [`core/views.py`](./core/views.py#L38-L50) *(cálculos con `vence__lt=date.today()`, `ETAPA_EN_REPARACION` y `stock__lte=F('stock_minimo')`)*
+    - [`core/templates/core/inicio.html`](./core/templates/core/inicio.html#L13-L15) *(visualización condicional en rojo de tareas vencidas y recambios críticos)*
 
 ---
 
@@ -168,15 +168,15 @@ Django utiliza el patrón arquitectónico **MVT (Model - View - Template)**:
 1. **Importe total por etapa en Oportunidades:**
    - Cambios: Agrupación en base de datos por etapa con cálculo agregado de suma de importe y número de trabajos (`GROUP BY etapa`), presentados en una tabla resumen al pie del listado.
    - 📍 **Archivos:**
-     - [`oportunidades/views.py`](./crm-Taller/oportunidades/views.py#L61-L79) *(consulta ORM: `Oportunidad.objects.values('etapa').annotate(total=Sum('importe'), n=Count('id'))`)*
-     - [`oportunidades/templates/oportunidades/lista.html`](./crm-Taller/oportunidades/templates/oportunidades/lista.html#L39-L45) *(tabla HTML con las columnas: Etapa, Nº de trabajos e Importe total)*
+     - [`oportunidades/views.py`](./oportunidades/views.py#L61-L79) *(consulta ORM: `Oportunidad.objects.values('etapa').annotate(total=Sum('importe'), n=Count('id'))`)*
+     - [`oportunidades/templates/oportunidades/lista.html`](./oportunidades/templates/oportunidades/lista.html#L39-L45) *(tabla HTML con las columnas: Etapa, Nº de trabajos e Importe total)*
 
 2. **Marcar tarea como hecha con un solo clic desde el listado:**
    - Cambios: Vista rápida con `@require_POST` que pone `hecha = True` y redirige al listado. En la plantilla, botón inline `✔ Hecha` con formulario POST y token CSRF en cada fila pendiente.
    - 📍 **Archivos:**
-     - [`tareas/urls.py`](./crm-Taller/tareas/urls.py#L35-L36) *(ruta `path('<int:pk>/hecha/', views.marcar_hecha, name='hecha')`)*
-     - [`tareas/views.py`](./crm-Taller/tareas/views.py#L211-L226) *(vista `marcar_hecha` con `@require_POST` y `messages.success`)*
-     - [`tareas/templates/tareas/lista.html`](./crm-Taller/tareas/templates/tareas/lista.html#L38-L41) *(formulario inline con botón `✔ Hecha` solo para tareas con `not o.hecha`)*
+     - [`tareas/urls.py`](./tareas/urls.py#L35-L36) *(ruta `path('<int:pk>/hecha/', views.marcar_hecha, name='hecha')`)*
+     - [`tareas/views.py`](./tareas/views.py#L211-L226) *(vista `marcar_hecha` con `@require_POST` y `messages.success`)*
+     - [`tareas/templates/tareas/lista.html`](./tareas/templates/tareas/lista.html#L38-L41) *(formulario inline con botón `✔ Hecha` solo para tareas con `not o.hecha`)*
 
 ---
 
@@ -185,14 +185,14 @@ Django utiliza el patrón arquitectónico **MVT (Model - View - Template)**:
 - **Módulo `recambios` (Gestión de Almacén y Stock de Piezas):**
   - Cambios: App completa creada con `python manage.py startapp recambios`. Modelo `Recambio` con referencia única, categorías, relación con proveedores (`limit_choices_to={'tipo': 'proveedor'}`), propiedad calculada `stock_bajo`, formulario, administración, rutas y vistas CRUD completas, conectada al menú dinámico `MODULOS_CRM`.
   - 📍 **Archivos:**
-    - [`crm_project/settings.py`](./crm-Taller/crm_project/settings.py#L29) *(registro de `'recambios'` en `MODULOS_CRM`)*
-    - [`recambios/models.py`](./crm-Taller/recambios/models.py) *(modelo `Recambio`, relación con proveedor, propiedad `@property stock_bajo`)*
-    - [`recambios/views.py`](./crm-Taller/recambios/views.py) *(vistas CRUD: `index` con `select_related('proveedor')`, `detalle`, `crear`, `editar`, `borrar`)*
-    - [`recambios/forms.py`](./crm-Taller/recambios/forms.py) *(formulario `RecambioForm`)*
-    - [`recambios/admin.py`](./crm-Taller/recambios/admin.py) *(registro en `/admin/` con `search_fields` que incluye `proveedor__nombre`)*
-    - [`recambios/urls.py`](./crm-Taller/recambios/urls.py) *(enrutamiento del módulo con `app_name = 'recambios'`)*
-    - [`recambios/templates/recambios/lista.html`](./crm-Taller/recambios/templates/recambios/lista.html) *(plantilla con buscador, filtro de categorías y aviso visual de reponer stock)*
-    - [`recambios/migrations/0001_initial.py`](./crm-Taller/recambios/migrations/0001_initial.py) *(migración inicial de la base de datos)*
+    - [`crm_project/settings.py`](./crm_project/settings.py#L29) *(registro de `'recambios'` en `MODULOS_CRM`)*
+    - [`recambios/models.py`](./recambios/models.py) *(modelo `Recambio`, relación con proveedor, propiedad `@property stock_bajo`)*
+    - [`recambios/views.py`](./recambios/views.py) *(vistas CRUD: `index` con `select_related('proveedor')`, `detalle`, `crear`, `editar`, `borrar`)*
+    - [`recambios/forms.py`](./recambios/forms.py) *(formulario `RecambioForm`)*
+    - [`recambios/admin.py`](./recambios/admin.py) *(registro en `/admin/` con `search_fields` que incluye `proveedor__nombre`)*
+    - [`recambios/urls.py`](./recambios/urls.py) *(enrutamiento del módulo con `app_name = 'recambios'`)*
+    - [`recambios/templates/recambios/lista.html`](./recambios/templates/recambios/lista.html) *(plantilla con buscador, filtro de categorías y aviso visual de reponer stock)*
+    - [`recambios/migrations/0001_initial.py`](./recambios/migrations/0001_initial.py) *(migración inicial de la base de datos)*
 
 ---
 
