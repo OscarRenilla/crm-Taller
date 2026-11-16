@@ -1,0 +1,67 @@
+================================================================================
+AUTOTALLER CRM - INFORMACIÓN DE ACCESO Y MEMORIA DE DESARROLLO
+================================================================================
+
+1. CREDENCIALES DE ACCESO
+--------------------------------------------------------------------------------
+URL de la aplicación: http://127.0.0.1:8000/
+Usuario administrador: admin
+Contraseña:            admin1234
+
+
+2. CÓMO ARRANCAR EL PROYECTO
+--------------------------------------------------------------------------------
+- En Windows: ejecutar el archivo `iniciar.bat` (doble clic o desde la terminal).
+- En Linux / macOS: ejecutar `bash iniciar.sh`.
+
+El script se encarga de crear el entorno virtual, instalar dependencias,
+aplicar migraciones, cargar los datos de ejemplo y levantar el servidor.
+
+
+3. LISTA DE TODOS COMPLETADOS (RÚBRICA COMPLETA)
+--------------------------------------------------------------------------------
+[NIVEL 1 - Personalización (Obligatorio)]
+- TODO 0: settings.py configurado con NOMBRE_CRM='AutoTaller CRM',
+  COLOR_PRINCIPAL='#d35400', LANGUAGE_CODE='es', TIME_ZONE='Europe/Madrid'.
+  Creado archivo TEMATICA.md.
+- TODO 1: contactos/models.py con TIPOS adaptados al taller (particular, empresa,
+  proveedor, aseguradora, otro).
+- TODO 2: Modelo Contacto ampliado con 'matricula' y 'vehiculo'. Integrados en
+  modelo (con normalización a mayúsculas), formulario, panel de administración,
+  listado y vista de detalle.
+- TODO 3: 5 etapas en oportunidades (presupuesto, aprobado, en_reparacion,
+  entregado y rechazado). Constantes de clase y sincronización con core/views.py.
+- TODO 4: Nuevos canales en interacciones: 'whatsapp' (WhatsApp) y 'mostrador' (En mostrador).
+- TODO 5: Campo 'prioridad' añadido a tareas con choices (alta, media, baja).
+- TODO 10: Datos de ejemplo en cargar_ejemplo.py con 10 contactos reales,
+  9 trabajos, 8 interacciones, 8 tareas con fechas dinámicas y 8 recambios.
+
+[NIVEL 2 - Ampliación (Obligatorio)]
+- TODO 6: Columnas ajustadas en los listados (matrícula y vehículo en contactos;
+  cierre previsto en oportunidades; prioridad y tareas vencidas coloreadas en tareas;
+  stock y alertas en recambios).
+- TODO 7: Filtros por tipo en contactos, por etapa en oportunidades, por canal en
+  interacciones, por prioridad y estado en tareas, y por categoría en recambios.
+  Buscadores con operador Q multi-campo.
+- TODO 8: Botón "Marcar como ganada" en la ficha de oportunidad mediante vista
+  protegida por POST y token CSRF.
+- TODO 9: Métricas personalizadas en el Dashboard: tareas vencidas (en rojo),
+  coches actualmente en reparación, y recambios con stock bajo (usando F expressions).
+
+[NIVEL 3 - Funcionalidades CRM (2 elegidas)]
+1. Importe total por etapa en oportunidades mediante agregaciones ORM
+   (values('etapa').annotate(total=Sum('importe'), n=Count('id'))).
+2. Marcar tarea como hecha con un solo clic desde el listado mediante petición POST.
+
+[NIVEL 4 - Módulo Propio (Opcional, +1 pt)]
+- App 'recambios' creada desde cero para la gestión de piezas y stock del almacén.
+  Relación con proveedores filtrada con limit_choices_to, propiedad stock_bajo,
+  CRUD completo e integrada en MODULOS_CRM y Dashboard.
+
+[REGLAS Y BUENAS PRÁCTICAS CUMPLIDAS]
+- Código exhaustivamente documentado.
+- Exclusión de fields='__all__' en interacciones; asignación de autor con commit=False.
+- Prevención de consultas N+1 con select_related.
+- Patrón Post-Redirect-Get con mensajes flash.
+================================================================================
+
